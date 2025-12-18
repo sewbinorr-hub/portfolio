@@ -1,5 +1,4 @@
 import { Component } from 'react'
-import { Link } from 'react-router-dom'
 
 class ErrorBoundary extends Component {
   constructor(props) {
@@ -31,12 +30,16 @@ class ErrorBoundary extends Component {
               >
                 Refresh Page
               </button>
-              <Link
-                to="/"
+              <a
+                href="#home"
+                onClick={(e) => {
+                  e.preventDefault()
+                  document.getElementById('home')?.scrollIntoView({ behavior: 'smooth' })
+                }}
                 className="px-6 py-3 bg-white/10 text-white font-bold rounded-full hover:bg-white/20 transition-all"
               >
                 Go Home
-              </Link>
+              </a>
             </div>
           </div>
         </div>

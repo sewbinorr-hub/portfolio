@@ -1,5 +1,4 @@
 import { useState, useEffect, useRef } from 'react'
-import { Link } from 'react-router-dom'
 
 const skills = [
   {
@@ -362,17 +361,7 @@ const Skills = () => {
 
   return (
     <>
-      {/* Ambient Background Effects */}
-      <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
-        <div className="blob bg-purple-900 w-96 h-96 rounded-full top-0 left-0 -translate-x-1/2 -translate-y-1/2 mix-blend-screen animate-pulse"></div>
-        <div className="blob bg-blue-900 w-[500px] h-[500px] rounded-full bottom-0 right-0 translate-x-1/3 translate-y-1/3 mix-blend-screen opacity-40"></div>
-        <div className="blob bg-cyan-900/40 w-80 h-80 rounded-full top-1/3 right-1/4 mix-blend-screen"></div>
-      </div>
-
-      {/* Decorative Grid Overlay */}
-      <div className="fixed inset-0 pointer-events-none opacity-[0.03] z-50" style={{backgroundImage: 'linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)', backgroundSize: '50px 50px'}}></div>
-
-      <main className="relative z-10 flex-grow flex flex-col justify-center items-center px-4 sm:px-8 pt-28 pb-16 w-full max-w-[1280px] mx-auto">
+      <div className="relative z-10 flex-grow flex flex-col justify-center items-center w-full">
         {/* Hero Section for Skills */}
         <div className="w-full">
           <div className="flex flex-col items-center lg:items-start text-center lg:text-left gap-6 mb-12">
@@ -472,44 +461,24 @@ const Skills = () => {
                 I'm currently available for freelance projects and open to full-time opportunities. Let's build something amazing together.
               </p>
               <div className="flex flex-wrap justify-center gap-4 mt-4">
-                <Link
-                  to="/work"
+                <a
+                  href="#work"
                   className="flex items-center gap-2 h-12 px-8 rounded-full bg-white text-black hover:bg-gray-200 text-base font-bold transition-transform hover:scale-105"
                 >
                   <span>View Projects</span>
                   <span className="material-symbols-outlined text-lg">arrow_outward</span>
-                </Link>
-                <Link
-                  to="/contact"
+                </a>
+                <a
+                  href="#contact"
                   className="flex items-center gap-2 h-12 px-8 rounded-full border border-white/20 hover:bg-white/5 text-white text-base font-medium transition-colors backdrop-blur-sm"
                 >
                   <span>Contact Me</span>
-                </Link>
+                </a>
               </div>
             </div>
           </div>
         </div>
-      </main>
-
-      {/* Footer */}
-      <footer className="w-full border-t border-surface-border bg-background-dark py-8 mt-12">
-        <div className="max-w-[1280px] mx-auto px-6">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-            <p className="text-gray-500 text-sm">© 2024 Portfolio. Designed & Built with ❤️</p>
-            <div className="flex gap-6">
-              <a className="text-gray-500 hover:text-white transition-colors" href="#" aria-label="Link">
-                <span className="material-symbols-outlined">link</span>
-              </a>
-              <a className="text-gray-500 hover:text-white transition-colors" href="#" aria-label="Mail">
-                <span className="material-symbols-outlined">mail</span>
-              </a>
-              <a className="text-gray-500 hover:text-white transition-colors" href="#" aria-label="Email">
-                <span className="material-symbols-outlined">alternate_email</span>
-              </a>
-            </div>
-          </div>
-        </div>
-      </footer>
+      </div>
     </>
   )
 }

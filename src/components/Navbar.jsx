@@ -1,11 +1,10 @@
 import { useState, useEffect } from 'react'
-import { Link, useLocation } from 'react-router-dom'
 import { Menu, X } from 'lucide-react'
 
 const Navbar = ({ mobileMenuOpen, setMobileMenuOpen }) => {
-  const location = useLocation()
   const [isVisible, setIsVisible] = useState(true)
   const [lastScrollY, setLastScrollY] = useState(0)
+  const [activeSection, setActiveSection] = useState('home')
 
   useEffect(() => {
     const handleScroll = () => {
@@ -23,6 +22,18 @@ const Navbar = ({ mobileMenuOpen, setMobileMenuOpen }) => {
       }
       
       setLastScrollY(currentScrollY)
+
+      // Update active section based on scroll position
+      const sections = ['home', 'about', 'skills', 'work', 'contact']
+      const scrollPosition = currentScrollY + 200
+
+      for (let i = sections.length - 1; i >= 0; i--) {
+        const section = document.getElementById(sections[i])
+        if (section && section.offsetTop <= scrollPosition) {
+          setActiveSection(sections[i])
+          break
+        }
+      }
     }
 
     window.addEventListener('scroll', handleScroll, { passive: true })
@@ -30,12 +41,22 @@ const Navbar = ({ mobileMenuOpen, setMobileMenuOpen }) => {
   }, [lastScrollY])
   
   const navLinks = [
-    { path: '/', label: 'Home' },
-    { path: '/about', label: 'About' },
-    { path: '/skills', label: 'Skills' },
-    { path: '/work', label: 'Projects' },
-    { path: '/contact', label: 'Contact' },
+    { path: '#home', label: 'Home', id: 'home' },
+    { path: '#about', label: 'About', id: 'about' },
+    { path: '#skills', label: 'Skills', id: 'skills' },
+    { path: '#work', label: 'Projects', id: 'work' },
+    { path: '#contact', label: 'Contact', id: 'contact' },
   ]
+
+  const handleNavClick = (e, path) => {
+    e.preventDefault()
+    const targetId = path.replace('#', '')
+    const targetElement = document.getElementById(targetId)
+    if (targetElement) {
+      targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' })
+      setMobileMenuOpen(false)
+    }
+  }
 
   return (
     <nav 
@@ -57,28 +78,30 @@ const Navbar = ({ mobileMenuOpen, setMobileMenuOpen }) => {
         {/* Desktop Links */}
         <div className="hidden md:flex items-center gap-1 flex-1 justify-center min-w-0">
           {navLinks.map((link) => (
-            <Link
+            <a
               key={link.path}
-              to={link.path}
+              href={link.path}
+              onClick={(e) => handleNavClick(e, link.path)}
               className={`px-4 xl:px-5 py-2 text-sm font-medium rounded-full transition-colors whitespace-nowrap ${
-                location.pathname === link.path
+                activeSection === link.id
                   ? 'text-white bg-white/10'
                   : 'text-gray-300 hover:text-white hover:bg-white/5'
               }`}
             >
               {link.label}
-            </Link>
+            </a>
           ))}
         </div>
 
         {/* CTA */}
         <div className="flex items-center gap-3 pr-1">
-          <Link
-            to="/contact"
+          <a
+            href="#contact"
+            onClick={(e) => handleNavClick(e, '#contact')}
             className="hidden sm:flex items-center justify-center h-10 px-6 rounded-full bg-primary hover:bg-[#3bdb0f] text-[#050805] text-sm font-bold transition-all shadow-[0_0_20px_rgba(70,236,19,0.3)] hover:shadow-[0_0_30px_rgba(70,236,19,0.5)]"
           >
             Let's Talk
-          </Link>
+          </a>
 
           {/* Mobile Menu Button */}
           <button
@@ -113,27 +136,27 @@ const Navbar = ({ mobileMenuOpen, setMobileMenuOpen }) => {
           }}
         >
           {navLinks.map((link) => (
-            <Link
+            <a
               key={link.path}
-              to={link.path}
+              href={link.path}
+              onClick={(e) => handleNavClick(e, link.path)}
               className={`block px-4 py-3 text-sm font-medium rounded-lg transition-colors ${
-                location.pathname === link.path
+                activeSection === link.id
                   ? 'text-white bg-white/10'
                   : 'text-gray-300 hover:text-white hover:bg-white/5'
               }`}
-              onClick={() => setMobileMenuOpen(false)}
               role="menuitem"
             >
               {link.label}
-            </Link>
+            </a>
           ))}
-          <Link
-            to="/contact"
+          <a
+            href="#contact"
+            onClick={(e) => handleNavClick(e, '#contact')}
             className="w-full mt-4 flex items-center justify-center h-10 px-6 rounded-full bg-primary hover:bg-[#3bdb0f] text-[#050805] text-sm font-bold transition-all"
-            onClick={() => setMobileMenuOpen(false)}
           >
             Let's Talk
-          </Link>
+          </a>
         </div>
       )}
     </nav>

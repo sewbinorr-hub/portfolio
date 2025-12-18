@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom'
 import ProfileCard from './ProfileCard'
 
 const Hero = () => {
@@ -25,19 +24,19 @@ const Hero = () => {
         </p>
 
         <div className="flex flex-wrap justify-center lg:justify-start gap-4 mt-4">
-          <Link
-            to="/work"
+          <a
+            href="#work"
             className="flex items-center gap-2 h-12 px-8 rounded-full bg-white text-black hover:bg-gray-200 text-base font-bold transition-transform hover:scale-105"
           >
             <span>View Projects</span>
             <span className="material-symbols-outlined text-lg">arrow_outward</span>
-          </Link>
-          <Link
-            to="/contact"
+          </a>
+          <a
+            href="#contact"
             className="flex items-center gap-2 h-12 px-8 rounded-full border border-white/20 hover:bg-white/5 text-white text-base font-medium transition-colors backdrop-blur-sm"
           >
             <span>Contact Me</span>
-          </Link>
+          </a>
         </div>
 
         {/* Tech Stack Ticker */}
